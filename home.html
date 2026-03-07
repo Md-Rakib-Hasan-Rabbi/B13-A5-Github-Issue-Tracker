@@ -1,11 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Github Issue Tracker</title>
+
+    <!-- daisyUI + Tailwind CSS  -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- font integration -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- custom css -->
+    <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
-    Hello World
+    <header>
+        <div class="navbar bg-base-100 shadow-sm space-x-3">
+            <div class="flex flex-1 items-center gap-2">
+                <img src="./assets/github-logo.png" alt="GitHub Logo" class="w-8">
+                <a class="btn btn-ghost normal-case text-xl">Github Issue Tracker</a>
+            </div>
+            <label class="input input-bordered flex items-center gap-2 w-68">
+                <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+                <input type="text" class="grow" placeholder="Search issues..." />
+            </label>
+            <div>
+                <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Issue</button>
+            </div>
+        </div>
+    </header>
 </body>
+
 </html>
