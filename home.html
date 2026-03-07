@@ -45,7 +45,7 @@
 
     <section>
         <div class="w-11/12 mx-auto mt-6 p-6 rounded-lg shadow-md flex gap-4">
-            <button class="btn btn-outline btn-primary w-20">All</button>
+            <button onclick="loadIssues()" class="btn btn-outline btn-primary w-20">All</button>
             <button class="btn btn-outline btn-primary w-20">Open</button>
             <button class="btn btn-outline btn-primary w-20">Closed</button>
         </div>
@@ -61,7 +61,7 @@
                 </div>
             </div>
 
-            <div class="flex justify-center items-center">
+            <div class="flex justify-center items-center gap-2">
                 <div>
                     <i class="fa-solid fa-circle text-[10px] text-emerald-500"></i>
                     <span class="ml-2">Open</span>
@@ -73,7 +73,13 @@
             </div>
         </div>
     </section>
-    
+
+    <section  class="w-11/12 mx-auto mt-2">
+    <div id="IssuesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+    </div>
+</section>
 </body>
+<script src="./scripts/home.js"></script>
 
 </html>
