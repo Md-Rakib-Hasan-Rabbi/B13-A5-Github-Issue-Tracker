@@ -25,6 +25,7 @@ document.getElementById('closed-btn').addEventListener('click', () => {
 
 
 const displayIssues = (issues) => {
+    document.getElementById('issue-count').textContent = `${issues.length} Issues`;
     const issuesContainer = document.getElementById('IssuesContainer');
     issuesContainer.innerHTML = '';
     issues.forEach(issue => {
