@@ -63,5 +63,26 @@ const displayIssues = (issues) => {
 
 }
 
+const allBtn = document.getElementById('all-btn');
+const openBtn = document.getElementById('open-btn');
+const closedBtn = document.getElementById('closed-btn');
+const btns = [allBtn, openBtn, closedBtn];
+
+function setActiveButton(activeBtn) {
+    btns.forEach(btn => {
+        btn.classList.add('btn-outline');
+    });
+    activeBtn.classList.remove('btn-outline');
+}
+
+// Set default active on page load
+setActiveButton(allBtn);
+
+// Add click listeners
+btns.forEach(btn => {
+    btn.addEventListener('click', function () {
+        setActiveButton(btn);
+    });
+});
 
 loadIssues();
