@@ -1,8 +1,27 @@
+let allIssues = [];
 const loadIssues = () => {
     fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
         .then((res) => res.json())
-        .then((data) => displayIssues(data.data))
+        .then((data) => {
+            allIssues = data.data;
+            displayIssues(allIssues);
+        });
+
 }
+
+document.getElementById('all-btn').addEventListener('click', () => {
+    displayIssues(allIssues);
+});
+
+document.getElementById('open-btn').addEventListener('click', () => {
+    const openIssues = allIssues.filter(issue => issue.status && issue.status.toLowerCase() === 'open');
+    displayIssues(openIssues);
+});
+
+document.getElementById('closed-btn').addEventListener('click', () => {
+    const closedIssues = allIssues.filter(issue => issue.status && issue.status.toLowerCase() === 'closed');
+    displayIssues(closedIssues);
+});
 
 
 const displayIssues = (issues) => {
