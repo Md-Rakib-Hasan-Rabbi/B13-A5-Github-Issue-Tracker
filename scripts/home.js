@@ -15,7 +15,7 @@ const displayIssues = (issues) => {
             <div class="p-5 flex-grow">
                 <div class="flex justify-between items-start mb-4">
                     <img src="./assets/Open-Status.png" alt="Status" class="w-8 h-8">
-                    <span class="bg-red-50 text-red-500 text-[10px] font-bold px-3 py-1 rounded-full uppercase">
+                    <span class="text-[10px] font-bold px-3 py-1 rounded-full uppercase priority-type">
                         ${issue.priority}
                     </span>
                 </div>
@@ -43,5 +43,25 @@ const displayIssues = (issues) => {
             </div>
         </div>`;
         issuesContainer.appendChild(issueElement);
+
     });
+
+    const priorityTypeElements = document.querySelectorAll('.priority-type');
+    priorityTypeElements.forEach(element => {
+        const priority = element.textContent.trim().toUpperCase();
+        if (priority === 'HIGH') {
+            element.classList.add('bg-red-50', 'text-red-500');
+        } else if (priority === 'MEDIUM') {
+            element.classList.add('bg-yellow-50', 'text-yellow-500');
+        } else if (priority === 'LOW') {
+            element.classList.add('bg-[#EEEFF2]', 'text-[#9CA3AF]');
+        }
+
+    });
+
+
+
 }
+
+
+loadIssues();
