@@ -147,3 +147,12 @@ async function showIssueModal(issueId) {
 }
 
 loadIssues();
+
+document.getElementById('search-btn').addEventListener('click', function () {
+    const query = document.getElementById('search-input').value.trim().toLowerCase();
+    const filteredIssues = allIssues.filter(issue =>
+        issue.title.toLowerCase().includes(query) ||
+        issue.description.toLowerCase().includes(query)
+    );
+    displayIssues(filteredIssues);
+});
