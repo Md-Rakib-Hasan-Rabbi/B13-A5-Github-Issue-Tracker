@@ -29,9 +29,9 @@ const displayIssues = (issues) => {
     const issuesContainer = document.getElementById('IssuesContainer');
     issuesContainer.innerHTML = '';
     issues.forEach(issue => {
-        console.log(issue);
+        const borderClass = issue.status === "open" ? "border-t-4 border-green-400" : "border-t-4 border-purple-400";
         const issueElement = document.createElement('div');
-        issueElement.innerHTML = `<div class="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden flex flex-col">
+        issueElement.innerHTML = `<div class="bg-white rounded-xl shadow-sm overflow-hidden flex flex-col ${borderClass}">
             <div class="p-5 flex-grow">
                 <div class="flex justify-between items-start mb-4">
                     <img src="./assets/Open-Status.png" alt="Status" class="w-8 h-8">
@@ -48,12 +48,13 @@ const displayIssues = (issues) => {
                 </p>
 
                 <div class="flex gap-2">
-                    <span class="bg-red-50 text-red-500 border border-red-100 px-3 py-1 rounded-full text-[10px] font-bold">
-                        ${issue.labels[0]}
-                    </span>
-                    <span class="bg-orange-50 text-orange-500 border border-orange-100 px-3 py-1 rounded-full text-[10px] font-bold">
-                        ${issue.labels[1]}
-                    </span>
+                 ${issue.labels
+                .filter(label => label)
+                .map(label => `
+                  <span class="bg-red-50 text-red-500 border border-red-100 px-3 py-1 rounded-full text-[10px] font-bold">
+                  ${label}
+                 </span>
+              `).join('')}
                 </div>
             </div>
 
@@ -62,6 +63,9 @@ const displayIssues = (issues) => {
                 <p class="text-slate-400 text-xs">${issue.createdAt}</p>
             </div>
         </div>`;
+        issueElement.firstElementChild.addEventListener('click', () => {
+            showIssueModal(issue.id);
+        });
         issuesContainer.appendChild(issueElement);
 
     });
@@ -78,9 +82,6 @@ const displayIssues = (issues) => {
         }
 
     });
-
-
-
 }
 
 const allBtn = document.getElementById('all-btn');
@@ -95,14 +96,54 @@ function setActiveButton(activeBtn) {
     activeBtn.classList.remove('btn-outline');
 }
 
-// Set default active on page load
 setActiveButton(allBtn);
 
-// Add click listeners
 btns.forEach(btn => {
     btn.addEventListener('click', function () {
         setActiveButton(btn);
     });
 });
+async function showIssueModal(issueId) {
+    const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${issueId}`);
+    const data = await res.json();
+    const issue = data.data;
+
+    document.getElementById('modal-title').textContent = issue.title;
+
+    const statusEl = document.getElementById('modal-status');
+    statusEl.textContent = issue.status.charAt(0).toUpperCase() + issue.status.slice(1);
+    if (issue.status.toLowerCase() === 'open') {
+        statusEl.className = "px-3 py-1 rounded-full text-xs font-bold bg-green-500 text-white";
+    } else {
+        statusEl.className = "px-3 py-1 rounded-full text-xs font-bold bg-purple-500 text-white";
+    }
+
+    document.getElementById('modal-author').textContent = `Opened by ${issue.author}`;
+    document.getElementById('modal-date').textContent = new Date(issue.createdAt).toLocaleDateString();
+
+    const labelsEl = document.getElementById('modal-labels');
+    labelsEl.innerHTML = '';
+    (issue.labels || []).forEach(label => {
+        if (label) {
+            let colorClass = "bg-red-50 text-red-500 border border-red-100";
+            if (label.toLowerCase().includes('help')) colorClass = "bg-yellow-50 text-yellow-600 border border-yellow-100";
+            labelsEl.innerHTML += `<span class="px-3 py-1 rounded-full text-xs font-bold ${colorClass}">${label}</span>`;
+        }
+    });
+
+    document.getElementById('modal-desc').textContent = issue.description;
+    document.getElementById('modal-assignee').textContent = issue.author;
+    const priorityEl = document.getElementById('modal-priority');
+    priorityEl.textContent = issue.priority;
+    if (issue.priority.toLowerCase() === 'high') {
+        priorityEl.className = "ml-2 px-3 py-1 rounded-full text-xs font-bold bg-red-500 text-white";
+    } else if (issue.priority.toLowerCase() === 'medium') {
+        priorityEl.className = "ml-2 px-3 py-1 rounded-full text-xs font-bold bg-yellow-400 text-white";
+    } else {
+        priorityEl.className = "ml-2 px-3 py-1 rounded-full text-xs font-bold bg-gray-300 text-gray-700";
+    }
+
+    document.getElementById('loadSingleIssue').showModal();
+}
 
 loadIssues();

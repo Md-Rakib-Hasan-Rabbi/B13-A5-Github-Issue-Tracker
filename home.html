@@ -45,9 +45,15 @@
 
     <section>
         <div class="w-11/12 mx-auto mt-6 p-6 rounded-lg shadow-md flex gap-4">
-            <button onclick="loadIssues()" class="btn btn-outline btn-primary w-20" id="all-btn">All</button>
-            <button class="btn btn-outline btn-primary w-20" id="open-btn">Open</button>
-            <button class="btn btn-outline btn-primary w-20" id="closed-btn">Closed</button>
+            <button onclick="loadIssues()" class="btn btn-outline btn-primary w-20" id="all-btn">
+                All
+            </button>
+            <button class="btn btn-outline btn-primary w-20" id="open-btn">
+                Open
+            </button>
+            <button class="btn btn-outline btn-primary w-20" id="closed-btn">
+                Closed
+            </button>
         </div>
 
         <div class="w-11/12 mx-auto mt-6 p-6 rounded-lg shadow-md flex gap-4 justify-between">
@@ -74,11 +80,40 @@
         </div>
     </section>
 
-    <section  class="w-11/12 mx-auto mt-2">
-    <div id="IssuesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        
-    </div>
-</section>
+    <section class="w-11/12 mx-auto mt-2">
+        <div id="IssuesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+    </section>
+
+    <!-- Open the modal using ID.showModal() method -->
+    <dialog id="loadSingleIssue" class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box p-8 border-2 border-blue-500 rounded-xl max-w-2xl w-full">
+            <h2 id="modal-title" class="text-3xl font-bold mb-2"></h2>
+            <div class="flex items-center gap-2 mb-2">
+                <span id="modal-status" class="px-3 py-1 rounded-full text-xs font-bold"></span>
+                <span class="text-gray-400 text-xs">•</span>
+                <span id="modal-author" class="text-gray-500 text-xs"></span>
+                <span class="text-gray-400 text-xs">•</span>
+                <span id="modal-date" class="text-gray-500 text-xs"></span>
+            </div>
+            <div id="modal-labels" class="flex gap-2 mb-4"></div>
+            <p id="modal-desc" class="mb-6 text-gray-700"></p>
+            <div class="bg-gray-50 rounded-lg p-4 flex justify-between items-center mb-6">
+                <div>
+                    <span class="text-gray-500 text-sm">Assignee:</span>
+                    <span id="modal-assignee" class="font-bold"></span>
+                </div>
+                <div>
+                    <span class="text-gray-500 text-sm">Priority:</span>
+                    <span id="modal-priority" class="ml-2 px-3 py-1 rounded-full text-xs font-bold"></span>
+                </div>
+            </div>
+            <div class="flex justify-end">
+                <form method="dialog">
+                    <button class="btn bg-blue-700 text-white px-8">Close</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
 </body>
 <script src="./scripts/home.js"></script>
 
